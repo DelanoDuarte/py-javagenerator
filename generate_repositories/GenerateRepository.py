@@ -4,7 +4,7 @@ import os
 
 class GenerateRepository:
 
-    def create_repositories(self, entity_path, repository_path):
+    def create_repositories(self, entity_path, repository_path, entity_package , repository_package):
 
         entity_classes = self.search_entities_on_package(entity_path)
 
@@ -16,8 +16,8 @@ class GenerateRepository:
             new_file = open(repository_path + "\{file}{extension}".format(
                 file=clazz_name, extension=extension_name), "w+")
 
-            new_file.write("package repository;\n")
-            new_file.write("import org.classes.{}".format(file_name[0]) + ";")
+            new_file.write("package {repo_pk};\n".format(repo_pk=repository_package))
+            new_file.write("import {entity_pk}.{class_name}".format(entity_pk=entity_package, class_name=file_name[0]) + ";")
             new_file.write("\n")
             new_file.write(
                 "import org.springframework.data.jpa.repository.JpaRepository;\n")
